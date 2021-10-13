@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
-/* @charset "UTF-8"; */
+@charset "UTF-8";
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -1969,7 +1969,7 @@ pre code {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
-  /* border-radius: 0.25rem; */
+  border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1990,7 +1990,7 @@ pre code {
   background-color: #fff;
   border-color: #a1cbef;
   outline: 0;
-  /* box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25); */
+  box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
 .form-control::-moz-placeholder {
   color: #6c757d;
@@ -10001,4 +10001,9 @@ h3 {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+
+#register-box{
+  background: #fff;
+  padding: 30px;
 }

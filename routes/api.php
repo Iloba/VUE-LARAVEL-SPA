@@ -15,10 +15,16 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+//check if user is authenticated before allowing them to access dashboard
+Route::middleware('auth:sanctum')->get('/authenticated', function () {
+    return true;
 });
 
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register.user');
 Route::post('/login', [RegisterController::class, 'login'])->name('login.user');
+Route::post('/logout', [RegisterController::class, 'logout'])->name('logout.user');

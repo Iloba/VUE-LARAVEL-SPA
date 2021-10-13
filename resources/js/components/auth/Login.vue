@@ -3,7 +3,7 @@
         <div class="container">
             
             <div class="row">
-                <div class="col-md-6 mx-auto" id="register-box">
+                <div class="col-md-6 mx-auto shadow" id="register-box">
                     <div class="alert alert-danger" v-if="errors.error" >
                         <span v-for="(error, index) in errors" :key="index"> {{ error }}</span>
                        

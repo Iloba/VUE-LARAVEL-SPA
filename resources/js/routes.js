@@ -5,6 +5,7 @@ import NotFound from './components/NotFound';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/auth/Dashboard';
+import axios from 'axios';
 
 
 export default{
@@ -17,7 +18,8 @@ export default{
         },
         {
             path: '/',
-            component: Home
+            component: Home,
+            name: 'Home'
         },
         {
             path: '/about',
@@ -40,7 +42,17 @@ export default{
         {
             path: '/dashboard',
             component: Dashboard,
-            name: 'Dashboard'
+            name: 'Dashboard',
+
+            //authenticate user
+            beforeEnter: (to, from, next) => {
+                axios.get('api/authenticated')
+                .then(() => {
+                    next()
+                }).catch(()=>{
+                    return next({name: 'Login'});
+                })
+            }
         },
         
     ]

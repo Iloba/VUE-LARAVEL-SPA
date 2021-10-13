@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-6 mx-auto" id="register-box">
+            <div class="row" >
+                <div class="col-md-6 mx-auto shadow" id="register-box" >
                     <div  class="alert alert-success">
-                        {{ message }}
+                        <!-- {{ message }} -->
                     </div>
                     <h3>Register</h3>
                      <div class="form-group mt-5">
@@ -40,7 +40,7 @@
                          <span class="text-danger text-sm" v-if="errors.password_confirmation">{{errors.password_confirmation[0]}}</span>
                     </div>
 
-                    <button @click.prevent="registerUser" type="submit" class="btn btn-info text-light" v-bind:class="form.password.length  <8 ? 'hide-submit-button': ''">Register </button>
+                    <button @click.prevent="registerUser" type="submit" class="btn btn-info text-light" v-bind:class="form.password.length  < 8 ? 'hide-submit-button': ''">Register </button>
                     
                 </div>
             </div>

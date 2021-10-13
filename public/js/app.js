@@ -2151,9 +2151,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      user: null
+    };
+  },
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      axios.post('/api/logout').then(function () {
+        _this.$router.push({
+          name: 'Home'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  },
+  //get logged in user details
+  mounted: function mounted() {
+    var _this2 = this;
+
+    axios.get('/api/user').then(function (res) {
+      _this2.user = res.data;
+    });
   }
 });
 
@@ -2428,6 +2455,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_auth_Register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/auth/Register */ "./resources/js/components/auth/Register.vue");
 /* harmony import */ var _components_auth_Login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/auth/Login */ "./resources/js/components/auth/Login.vue");
 /* harmony import */ var _components_auth_Dashboard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/auth/Dashboard */ "./resources/js/components/auth/Dashboard.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
+
 
 
 
@@ -2443,7 +2473,8 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_NotFound__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
     path: '/',
-    component: _components_Home__WEBPACK_IMPORTED_MODULE_0__["default"]
+    component: _components_Home__WEBPACK_IMPORTED_MODULE_0__["default"],
+    name: 'Home'
   }, {
     path: '/about',
     component: _components_About__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -2461,7 +2492,17 @@ __webpack_require__.r(__webpack_exports__);
   }, {
     path: '/dashboard',
     component: _components_auth_Dashboard__WEBPACK_IMPORTED_MODULE_6__["default"],
-    name: 'Dashboard'
+    name: 'Dashboard',
+    //authenticate user
+    beforeEnter: function beforeEnter(to, from, next) {
+      axios__WEBPACK_IMPORTED_MODULE_7___default().get('api/authenticated').then(function () {
+        next();
+      })["catch"](function () {
+        return next({
+          name: 'Login'
+        });
+      });
+    }
   }]
 });
 
@@ -38905,7 +38946,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Dashboard\n")])
+  return _c("div", [
+    _c("h1", [_vm._v("Dashboard")]),
+    _vm._v("\n   Name " + _vm._s(_vm.user.name) + " "),
+    _c("br"),
+    _vm._v("\n   Email " + _vm._s(_vm.user.email) + "\n\n   "),
+    _c(
+      "button",
+      {
+        staticClass: "logout",
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            return _vm.logout.apply(null, arguments)
+          }
+        }
+      },
+      [_vm._v("Logout")]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38935,7 +38994,10 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c(
           "div",
-          { staticClass: "col-md-6 mx-auto", attrs: { id: "register-box" } },
+          {
+            staticClass: "col-md-6 mx-auto shadow",
+            attrs: { id: "register-box" }
+          },
           [
             _vm.errors.error
               ? _c(
@@ -39052,15 +39114,12 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c(
           "div",
-          { staticClass: "col-md-6 mx-auto", attrs: { id: "register-box" } },
+          {
+            staticClass: "col-md-6 mx-auto shadow",
+            attrs: { id: "register-box" }
+          },
           [
-            _c("div", { staticClass: "alert alert-success" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(_vm.message) +
-                  "\n                "
-              )
-            ]),
+            _c("div", { staticClass: "alert alert-success" }),
             _vm._v(" "),
             _c("h3", [_vm._v("Register")]),
             _vm._v(" "),
