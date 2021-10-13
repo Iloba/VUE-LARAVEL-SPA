@@ -2327,7 +2327,8 @@ __webpack_require__.r(__webpack_exports__);
         password_confirmation: ''
       },
       errors: [],
-      message: false
+      message: '',
+      Regstatus: false
     };
   },
   methods: {
@@ -2337,7 +2338,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/register', this.form).then(function (res) {
         if (res.status = 201) {
           _this.form = '';
-          _this.message = true;
+          _this.message = res.data;
+          _this.Regstatus = true;
         }
       })["catch"](function (error) {
         _this.errors = error.response.data.errors;
@@ -39119,7 +39121,15 @@ var render = function() {
             attrs: { id: "register-box" }
           },
           [
-            _c("div", { staticClass: "alert alert-success" }),
+            _vm.Regstatus
+              ? _c("div", { staticClass: "alert alert-success" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.message) +
+                      "\n                "
+                  )
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c("h3", [_vm._v("Register")]),
             _vm._v(" "),
@@ -39136,8 +39146,6 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                class:
-                  _vm.form.name.length <= 5 ? "red-border" : "green-border",
                 attrs: { type: "text", placeholder: "Enter name" },
                 domProps: { value: _vm.form.name },
                 on: {
@@ -39149,14 +39157,6 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" "),
-              _vm.form.name.length < 4
-                ? _c("small", { staticStyle: { color: "red" } }, [
-                    _vm._v("Invalid Entry")
-                  ])
-                : _c("small", { staticStyle: { color: "green" } }, [
-                    _vm._v("Good")
-                  ]),
               _vm._v(" "),
               _vm.errors.name
                 ? _c("span", { staticClass: "text-danger text-sm" }, [
@@ -39178,8 +39178,6 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                class:
-                  _vm.form.email.length <= 5 ? "red-border" : "green-border",
                 attrs: { type: "email", placeholder: "Enter Email" },
                 domProps: { value: _vm.form.email },
                 on: {
@@ -39191,14 +39189,6 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" "),
-              _vm.form.email.length < 4
-                ? _c("small", { staticStyle: { color: "red" } }, [
-                    _vm._v("Invalid Entry")
-                  ])
-                : _c("small", { staticStyle: { color: "green" } }, [
-                    _vm._v("Good")
-                  ]),
               _vm._v(" "),
               _vm.errors.email
                 ? _c("span", { staticClass: "text-danger text-sm" }, [
@@ -39220,8 +39210,6 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                class:
-                  _vm.form.password.length < 8 ? "red-border" : "green-border",
                 attrs: { type: "password", placeholder: "Enter Password" },
                 domProps: { value: _vm.form.password },
                 on: {
@@ -39233,14 +39221,6 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" "),
-              _vm.form.password.length < 4
-                ? _c("small", { staticStyle: { color: "red" } }, [
-                    _vm._v("Invalid Entry")
-                  ])
-                : _c("small", { staticStyle: { color: "green" } }, [
-                    _vm._v("Good")
-                  ]),
               _vm._v(" "),
               _vm.errors.password
                 ? _c("span", { staticClass: "text-danger text-sm" }, [
@@ -39264,10 +39244,6 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                class:
-                  _vm.form.password_confirmation.length < 8
-                    ? "red-border"
-                    : "green-border",
                 attrs: {
                   type: "password",
                   placeholder: "Enter Password Confirmation"
@@ -39287,14 +39263,6 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _vm.form.password_confirmation.length < 4
-                ? _c("small", { staticStyle: { color: "red" } }, [
-                    _vm._v("Invalid Entry")
-                  ])
-                : _c("small", { staticStyle: { color: "green" } }, [
-                    _vm._v("Good")
-                  ]),
-              _vm._v(" "),
               _vm.errors.password_confirmation
                 ? _c("span", { staticClass: "text-danger text-sm" }, [
                     _vm._v(_vm._s(_vm.errors.password_confirmation[0]))
@@ -39306,7 +39274,6 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-info text-light",
-                class: _vm.form.password.length < 8 ? "hide-submit-button" : "",
                 attrs: { type: "submit" },
                 on: {
                   click: function($event) {
